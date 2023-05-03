@@ -1,7 +1,7 @@
 import * as React from "react";
 import { OrgChart } from 'd3-org-chart';
 import { renderToString } from "react-dom/server";
-import { NodeContent, ButtonContent } from "./NodeContent";
+import { NodeContent } from "./NodeContent";
 
 export interface State {
     data: ITreeNodeData[];
@@ -90,10 +90,6 @@ export class Chart extends React.Component<{}, State>{
             .compactMarginPair(() => 80)
             .nodeContent((d) => {
                 return renderToString(<NodeContent name={d.data.name} data={d.data.properties} />)
-            })
-            .buttonContent(({node, state}) => {
-                //@ts-ignore
-                return renderToString(<ButtonContent layout={state.layout} nodes={node.children} directSubs={node.data._directSubordinates} />)
             })
             .render()
             .fit();
